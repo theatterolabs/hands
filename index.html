@@ -48,7 +48,41 @@ const camera = new Camera(videoElement, {
 camera.start();
 </script>
   
-  
+ <style>
+   
+
+body {
+  background-color: #000;
+}
+   
+#container {
+  top:0px;
+  left:0px;
+  height:100%;
+   }
+
+#output_canvascanvas{
+  osition: absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index:1;
+  border: 0px #fff solid;
+	border-radius: 0px;
+}
+
+#input_video{
+  position: absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index:-1;
+  border: 0px #fff solid;
+	border-radius: 0px;
+}
+  </style>
   
   
 </head>
@@ -56,7 +90,7 @@ camera.start();
 <body>
   <div class="container">
     <video class="input_video"></video>
-    <canvas class="output_canvas" width="480px" height="640px"></canvas>
+    <canvas class="output_canvas"></canvas>
   </div>
 </body>
 </html>
