@@ -8,8 +8,8 @@
   
   
   <script type="module">
-const videoElement = document.getElementsByClassName('input_video')[0];
-const canvasElement = document.getElementsByClassName('output_canvas')[0];
+const videoElement = document.getElementsByClassName('inputVideo')[0];
+const canvasElement = document.getElementsByClassName('outputCanvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
 
 function onResults(results) {
@@ -56,31 +56,30 @@ body {
 }
    
 #container {
-  top:0px;
-  left:0px;
-  height:100%;
-   }
+  top: 0px;
+  left: 0px;
+  height: 100%;
+   
+	 }
 
-#output_canvascanvas{
-  osition: absolute;
-  top:0px;
-  right:0px;
-  bottom:0px;
-  left:0px;
-  z-index:1;
-  border: 0px #fff solid;
-	border-radius: 0px;
+#outputCanvas{
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  left: 0px;
+  z-index: 1;
+  border: none;
+	
 }
 
-#input_video{
+#inputVideo{
   position: absolute;
-  top:0px;
-  right:0px;
-  bottom:0px;
-  left:0px;
-  z-index:-1;
-  border: 0px #fff solid;
-	border-radius: 0px;
+  top: 0px;
+  height: 100%;
+  left: 0px;
+  z-index: -1;
+  border: none;
+
 }
   </style>
   
@@ -89,8 +88,8 @@ body {
 
 <body>
   <div class="container">
-    <video class="input_video"></video>
-    <canvas class="output_canvas"></canvas>
+    <video class="inputVideo" id="inputVideo"></video>
+    <canvas class="outputCanvas" id="outputCanvas"></canvas>
   </div>
 </body>
 </html>
