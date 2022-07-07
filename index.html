@@ -9,41 +9,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
   
   
-  <script type="module">
-	 const videoElement = document.getElementsByClassName('inputVideo')[0];
+ <script type="module">
+const videoElement = document.getElementsByClassName('inputVideo')[0];
 const canvasElement = document.getElementsByClassName('outputCanvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
-	  
-	  const constraints = {
-      video: { width: { min: 1280 }, height: { min: 720 } },
-    };
-	  
-	  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      videoElement.srcObject = stream;
-      sendToMediaPipe();
-    });
 
-	  const hands = new Hands({locateFile: (file) => {
-  return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-}});
-	  
-	  
-hands.setOptions({
-  maxNumHands: 2,
-  modelComplexity: 1,
-  minDetectionConfidence: 0.5,
-  minTrackingConfidence: 0.5
-});
-	  
-	  
-hands.onResults(onResults);
-	  
-async function sendToMediaPipe() {
-await hands.send({image: videoElement});
-
-}
-	  
-	  
 function onResults(results) {
   canvasCtx.save();
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
@@ -59,19 +29,27 @@ function onResults(results) {
   canvasCtx.restore();
 }
 
+const hands = new Hands({locateFile: (file) => {
+  return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+}});
+hands.setOptions({
+  maxNumHands: 2,
+  modelComplexity: 1,
+  minDetectionConfidence: 0.5,
+  minTrackingConfidence: 0.5
+});
+hands.onResults(onResults);
 
-
-/*
 const camera = new Camera(videoElement, {
   onFrame: async () => {
     await hands.send({image: videoElement});
   },
-  width: 720,
-  height: 1280
+  width: 1280,
+  height: 720
 });
-camera.start(); */
+camera.start();
+</script>
 	
-	</script>
 
 	<style>
    
