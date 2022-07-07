@@ -10,7 +10,7 @@
   
   
   <script type="module">
-	 
+	 function setup() {
 		 
 	  const videoElement = document.getElementsByClassName('inputVideo')[0];
 	  const canvasElement = document.getElementsByClassName('outputCanvas')[0];
@@ -77,13 +77,15 @@
 	  
 	  });
   
-	  await hands.send({image: videoElement});
-	  await videoElement.play();
+		  await videoElement.play();
+		  await hands.send({image: videoElement});
+	  
 	  
 	  }
 	  
 	  await startCamera();
-
+	 }
+	  
 	</script>
   
 
