@@ -10,16 +10,14 @@
   
   
   <script type="module">
-	  function setup() {
+	 
 		 
 	  const videoElement = document.getElementsByClassName('inputVideo')[0];
 	  const canvasElement = document.getElementsByClassName('outputCanvas')[0];
 	  const canvasCtx = canvasElement.getContext('2d');
-
-
-	  async function startCamera() {
-		  
-		  	  let stream  = await navigator.mediaDevices.getUserMedia({ 
+	  
+		  	  
+	  let stream  = await navigator.mediaDevices.getUserMedia({ 
 		  
 		  video: {
 			  width: {
@@ -41,11 +39,6 @@
   
 	  videoElement.srcObject = stream;
 	  await videoElement.play();
-	  setInterval(() => takeSnapshot(), 1000);
-	  
-	  
-	  }
-	  
 	  
 	  function onResults(results) {
 		  canvasCtx.save();
@@ -83,7 +76,6 @@
 
 	  hands.onResults(onResults);
 	  
-	  }
 
 	</script>
   
