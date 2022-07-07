@@ -10,16 +10,47 @@
   
   
   <script type="module">
+	  function setup() {
 		 
 	  const videoElement = document.getElementsByClassName('inputVideo')[0];
 	  const canvasElement = document.getElementsByClassName('outputCanvas')[0];
 	  const canvasCtx = canvasElement.getContext('2d');
 
 
+	  async function startCamera() {
+		  
+		  	  let stream  = await navigator.mediaDevices.getUserMedia({ 
+		  
+		  video: {
+			  width: {
+				  min: 720,
+				  ideal: 1080,
+				  max: 1440
+			  },
+			  height: {
+				  min: 1280,
+				  ideal: 1920,
+				  max: 2560,
+			  },
+			  facingMode: {
+				  exact: 'environment'
+			  }
+		  } 
+	  
+	  });
+  
+	  videoElement.srcObject = stream;
+	  await videoElement.play();
+	  setInterval(() => takeSnapshot(), 1000);
+	  
+	  
+	  }
+	  
+	  
 	  function onResults(results) {
 		  canvasCtx.save();
 		  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-		  canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+		  canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
 			  
 		  if (results.multiHandLandmarks) {
 			  for (const landmarks of results.multiHandLandmarks) {
@@ -52,28 +83,7 @@
 
 	  hands.onResults(onResults);
 	  
-	  videoElement.srcObject = await navigator.mediaDevices.getUserMedia({ 
-		  
-		  video: {
-			  width: {
-				  min: 720,
-				  ideal: 1080,
-				  max: 1440
-			  },
-			  height: {
-				  min: 1280,
-				  ideal: 1920,
-				  max: 2560,
-			  },
-			  facingMode: {
-				  exact: 'environment'
-			  }
-		  } 
-	  
-	  });
-  
-	  await videoElement.play();
-	  await hands.send({image: videoElement});
+	  }
 
 	</script>
   
@@ -129,7 +139,7 @@
   
 </head>
 
-<body>
+<body onload="setup()">
 	
   <div class="container">
 	  
