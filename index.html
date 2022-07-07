@@ -42,8 +42,8 @@ const camera = new Camera(videoElement, {
   onFrame: async () => {
     await hands.send({image: videoElement});
   },
-  width: 720,
-  height: 1280
+  width: 1280,
+  height: 720
 });
 camera.start();
 </script>
@@ -59,14 +59,14 @@ html, body {
 #container {
   top: 0px;
   left: 0px;
-  height: 100vh;
+  width: 100%;
    
 	 }
 
 #outputCanvas{
   position: absolute;
   top: 0px;
-  height: 100vh;
+  width: 100%;
   left: 0px;
   z-index: 1;
   border: none;
@@ -76,7 +76,7 @@ html, body {
 #inputVideo{
   position: absolute;
   top: 0px;
-  height: 100vh;
+  width: 100%
   left: 0px;
   z-index: -1;
   border: none;
