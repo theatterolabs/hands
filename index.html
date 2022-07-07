@@ -17,28 +17,7 @@
 	  const canvasCtx = canvasElement.getContext('2d');
 	  
 		  	  
-	  let stream  = await navigator.mediaDevices.getUserMedia({ 
-		  
-		  video: {
-			  width: {
-				  min: 720,
-				  ideal: 1080,
-				  max: 1440
-			  },
-			  height: {
-				  min: 1280,
-				  ideal: 1920,
-				  max: 2560,
-			  },
-			  facingMode: {
-				  exact: 'environment'
-			  }
-		  } 
 	  
-	  });
-  
-	  videoElement.srcObject = stream;
-	  await videoElement.play();
 	  
 	  function onResults(results) {
 		  canvasCtx.save();
@@ -76,6 +55,34 @@
 
 	  hands.onResults(onResults);
 	  
+	  
+	  async function startCamera() {
+	  videoElement.srcObject  = await navigator.mediaDevices.getUserMedia({ 
+		  
+		  video: {
+			  width: {
+				  min: 720,
+				  ideal: 1080,
+				  max: 1440
+			  },
+			  height: {
+				  min: 1280,
+				  ideal: 1920,
+				  max: 2560,
+			  },
+			  facingMode: {
+				  exact: 'environment'
+			  }
+		  } 
+	  
+	  });
+  
+	  await hands.send({image: videoElement});
+	  await videoElement.play();
+	  
+	  }
+	  
+	  await startCamera();
 
 	</script>
   
