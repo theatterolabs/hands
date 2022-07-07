@@ -19,7 +19,7 @@ const canvasCtx = canvasElement.getContext('2d');
     };
 	  
 	  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      videoInput.srcObject = stream;
+      videoElement.srcObject = stream;
       sendToMediaPipe();
     });
 
@@ -28,7 +28,7 @@ const canvasCtx = canvasElement.getContext('2d');
 }});
 	  
 	  
-	  hands.setOptions({
+hands.setOptions({
   maxNumHands: 2,
   modelComplexity: 1,
   minDetectionConfidence: 0.5,
