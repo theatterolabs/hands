@@ -19,8 +19,6 @@
 		  
 		  canvasCtx.save();
 		  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-		  canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-		  
 		  if (results.multiHandLandmarks) {
 			  
 			  for (const landmarks of results.multiHandLandmarks) {
@@ -51,9 +49,7 @@
 	  hands.onResults(onResults);
 	  
 	  
-	  async function startCamera() {
-		  
-		  let stream = await navigator.mediaDevices.getUserMedia({ 
+	  await navigator.mediaDevices.getUserMedia({ 
 		  
 		  video: {
     
@@ -71,12 +67,17 @@
 				  exact: 'environment'
 			  }
 		  }
-	  });
+	  }).then(stream => {
+    video.srcObject = stream
+    video.onloadedmetadata = () => { video.play() }
+  });
 	  
-	  videoElement.srcObject = stream;
-	  await videoElement.play();
-    
-	  }
+	  videoElement.addEventListener('play', function(){
+  setInterval(() => {
+    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+    renderCallbacks.forEach(f => f());
+  }, 100)
+});
 	 
 
 	</script>
