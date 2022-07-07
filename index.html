@@ -38,9 +38,9 @@ hands.setOptions({
 	  
 hands.onResults(onResults);
 	  
-const sendToMediaPipe = async () => {
+async function sendToMediaPipe() {
 await hands.send({image: videoElement});
-window.requestAnimationFrame(sendToMediaPipe);
+
 }
 	  
 	  
