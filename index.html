@@ -10,7 +10,8 @@
   
   
   <script type="module">
-	  
+	 function setup() { 
+		 
 	  const videoElement = document.getElementsByClassName('inputVideo')[0];
 	  const canvasElement = document.getElementsByClassName('outputCanvas')[0];
 	  const canvasCtx = canvasElement.getContext('2d');
@@ -19,7 +20,7 @@
 		  
 		  canvasCtx.save();
 		  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-		  canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+		  canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
 		  
 		  if (results.multiHandLandmarks) {
 			  
@@ -50,7 +51,10 @@
 	  
 	  hands.onResults(onResults);
 	  
-	  videoElement.srcObject = await navigator.mediaDevices.getUserMedia({ 
+	  
+	  async function startCamera() {
+		  
+		  let stream = await navigator.mediaDevices.getUserMedia({ 
 		  
 		  video: {
     
@@ -70,8 +74,12 @@
 		  }
 	  });
 	  
+	  videoElement.srcObject = stream;
 	  await videoElement.play();
-	  
+    
+	  }
+	 
+	 }
 
 	</script>
   
@@ -127,7 +135,7 @@
   
 </head>
 
-<body>
+<body onload="setup()">
   <div class="container">
     <video class="inputVideo" id="inputVideo"></video>
     <canvas class="outputCanvas" id="outputCanvas"></canvas>
